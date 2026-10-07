@@ -1,0 +1,2 @@
+import { Link } from 'react-router-dom';
+export default function Footer() { return <footer className="footer"><div className="footer-inner"><div className="footer-brand"><span className="brand-mark small-mark">S<span>✦</span></span><span><b>STATE GAMES</b><small>CHAMPIONSHIP 2026</small></span></div><p>One state. One spirit. Every possibility.</p><div><Link to="/events">Explore events</Link><span>© 2026 State Games Committee</span></div></div></footer>; }

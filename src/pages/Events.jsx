@@ -1,0 +1,9 @@
+import { useMemo, useState } from 'react';
+import { events } from './Home.jsx';
+import EventCard from '../components/EventCard.jsx';
+
+export default function Events() {
+  const [query, setQuery] = useState(''); const [category, setCategory] = useState('All events');
+  const filtered = useMemo(() => events.filter(e => (category === 'All events' || e.format.includes(category)) && `${e.name} ${e.type} ${e.venue}`.toLowerCase().includes(query.toLowerCase())), [query, category]);
+  return <><section className="page-hero"><div className="section-wrap"><span className="eyebrow">THE LINEUP · 2026</span><h1>Seven sports.<br /><em>One state.</em></h1><p>Find the event that feels like yours. Every arena is open to a new story.</p><div className="page-hero-meta"><span>12—16 NOVEMBER 2026</span><span>CHENNAI, TAMIL NADU</span></div></div></section><section className="events-area section-wrap"><div className="filter-bar"><label className="search-box"><span>⌕</span><input aria-label="Search events" placeholder="Search events or venues" value={query} onChange={e => setQuery(e.target.value)} /><kbd>⌘ K</kbd></label><div className="filter-select"><span>SHOW</span><select value={category} onChange={e => setCategory(e.target.value)} aria-label="Filter by event category"><option>All events</option><option>Individual</option><option>Team</option></select></div><span className="results-count">{filtered.length} EVENTS</span></div>{filtered.length ? <div className="event-grid">{filtered.map(e => <EventCard event={e} key={e.name} />)}</div> : <div className="empty-state"><span>⌕</span><h3>No events found</h3><p>Try another search or category.</p><button className="text-link" onClick={() => { setQuery(''); setCategory('All events'); }}>Clear filters →</button></div>}</section><div className="venue-note section-wrap"><span>⌖</span><p><b>All events take place in Chennai.</b> Venue access details will be shared with registered participants.</p></div></>;
+}
